@@ -35,6 +35,9 @@ export class ProfilePage {
 
       })
     }
+    else {
+      this.navCtrl.setRoot('HomePage');
+    }
   }
 
   getImageIfExists() {
@@ -42,7 +45,12 @@ export class ProfilePage {
     .subscribe(response => {
       this.cliente.imageUrl = `${API_CONFIG.bucketBaseUrl}/cp${this.cliente.id}.jpg`;
     },
-    error => {});
+    error => {
+      if (error.status == 403) {
+        this.navCtrl.setRoot('HomePage');
+      }
+    });
   }
+  
 
 }
